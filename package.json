@@ -1,0 +1,29 @@
+{
+  "name": "historical-events-finder",
+  "version": "1.0.0",
+  "description": "An application to search / browse historical event information",
+  "author": "Peter Vu <p.vu@berkeley.edu>",
+  "scripts": {
+    "react-dev": "webpack -d --watch",
+    "start": "json-server --watch ./server/db.json --static ./client/dist"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "nodemon": "^2.0.4",
+    "webpack": "^2.2.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.12.1",
+    "axios": "^0.21.0",
+    "express": "^4.15.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-paginate": "^6.5.0",
+    "styled-components": "^5.2.0"
+  }
+}
