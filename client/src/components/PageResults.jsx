@@ -10,16 +10,13 @@ import {
 class PageResults extends React.Component {
   constructor(props) {
     super(props);
-    const { totalRecords } = this.props
-    this.state = {
-      maxPages: Math.floor(totalRecords/10),
-    };
+    this.state = {};
   }
 
   render() {
-    const { maxPages } = this.state;
-    const { pageData, handlePageClick } = this.props;
-  
+    const { pageData, handlePageClick, totalRecords } = this.props;
+    const maxPages = Math.floor(totalRecords/10);
+
     console.log(pageData);
 
     const historicalEvents = pageData.map((historicalEvent, index) => {

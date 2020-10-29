@@ -15,7 +15,6 @@ class HomePage extends React.Component {
     this.state = {
       searchText: '',
       PageResults: '',
-      page: 1,
       totalRecords: 0,
     };
     this.handleChange = this.handleChange.bind(this);
