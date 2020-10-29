@@ -1,29 +1,26 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import getHistoricalData from './api.js';
+import {
+  EventDiv,
+  EventDescription,
+  EventHeader,
+  EventInformation
+} from './StyledComponents.jsx'
 
 class PageResults extends React.Component {
   constructor(props) {
     super(props);
-    const { data } = this.props
+    const { totalRecords } = this.props
     this.state = {
-      page: 1,
-      pageData: data,
+      maxPages: Math.floor(totalRecords/10),
     };
-    this.handlePageClick = this.handlePageClick.bind(this);
-  }
-
-  async handlePageClick(data) {
-    const { searchText } = this.props;
-    const { selected } = data;
-    const newPageSelection = selected + 1
-    const result = await getHistoricalData(searchText, newPageSelection);
-    this.setState({pageData: result.data});
   }
 
   render() {
-    const {pageData} = this.state
-    console.log(pageData)
+    const { maxPages } = this.state;
+    const { pageData, handlePageClick } = this.props;
+  
+    console.log(pageData);
 
     const historicalEvents = pageData.map((historicalEvent, index) => {
       const {
@@ -34,29 +31,49 @@ class PageResults extends React.Component {
       } = historicalEvent;
       
       return (
-        <div key={index}>
-          <p>{date}</p>
-          <p>{description}</p>
-          <p>{`${category1} ${category2}`}</p>
-        </div>
+        <EventDiv key={index}>
+          <p>
+            <EventHeader>
+              {'Date '}
+            </EventHeader>
+            <EventInformation>
+              {date}
+            </EventInformation>
+          </p>
+          <EventDescription>
+            {description}
+          </EventDescription>
+          <p>
+            <EventHeader>
+              {'Tags '}
+            </EventHeader>
+            <EventInformation>
+              {` ${category1}; ${category2}`}
+            </EventInformation>
+          </p>
+        </EventDiv>
       )
     })
 
+    // to do: clean up pagination results below
     return (
       <div id="results">
         <div id="historicalData">
           {historicalEvents}
         </div>
         <ReactPaginate
-          previousLabel={'Previous Page'}
-          nextLabel={'Next Page'}
+          pageCount={maxPages}
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={2}
+          previousLabel={'<'}
+          nextLabel={'>'}
           breakLabel={'...'}
           breakClassName={'break-me'}
-          pageRangeDisplayed={3}
-          marginPagesDisplayed={3}
-          onPageChange={this.handlePageClick}
+          onPageChange={handlePageClick}
           containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
+          pageClassName={'page'}
+          previousClassName={'page scroller'}
+          nextClassName={'page scroller'}
           activeClassName={'active'}
         />
       </div>
